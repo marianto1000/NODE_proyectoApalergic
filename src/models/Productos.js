@@ -10,7 +10,7 @@ const productosSchema = new Schema(
     ingredientes: {type: Array, required: true},
     foto: {type: String, required: true},
     descripcion: {type: String, required: true},
-    qr: {type: String, required: true},
+    //qr: {type: String, required: true},
   },
   {
     timestamps: true,

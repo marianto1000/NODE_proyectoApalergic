@@ -1,12 +1,13 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
+const authenticateJWT = require('../middlewares/autentication');
+const bcrypt = require('bcrypt');
 const Usuarios = require('../models/Usuarios');
-//const authenticateJWT = require ('..middlewares/autentification')
 
 
 const router = express.Router();
 
-router.get('/', (req, res) => {
+router.get('/', authenticateJWT, (req, res) => {
 	Usuarios.find({})
 		.then((usuario) => {
 			res.send(usuario);
@@ -24,7 +25,7 @@ router.post('/', (req, res) => {
 	const email = req.body.email
 	const password = req.body.password
 	const contact = req.body.contact
-	//const alimentos = req.body.alimentos
+	const alimentos = req.body.alimentos
 
 	const usuario = new Usuarios()
 
@@ -33,7 +34,7 @@ router.post('/', (req, res) => {
 	usuario.email = email;
 	usuario.password = password;
 	usuario.contact = contact;
-	//usuario.alimentos = alimentos;
+	usuario.alimentos = alimentos;
 
 
 	usuario.save()
@@ -47,10 +48,10 @@ router.post('/', (req, res) => {
 });
 
 router.post('/login',  (req, res) => {
-    const nombreCompleto = req.body.nombreCompleto;
+    const email = req.body.email;
     const password = req.body.password;
 
-    Usuarios.findOne({ nombreCompleto : nombreCompleto, password: password })
+    Usuarios.findOne({ email: email })
     .then((usuario) => {
         if(usuario)
         {
@@ -58,9 +59,8 @@ router.post('/login',  (req, res) => {
                 if(result)
                 {
                     const accessToken = jwt.sign(
-                        { userID: user._id, nombreCompleto: usuario.nombreCompleto }, 
+                        { userID: user._id, nombreCompleto: usuario.nombreCompleto },
                         process.env.JWT_SECRET);
-                    
                     return res.json({ logged : true, token: accessToken})
                 }
                 else

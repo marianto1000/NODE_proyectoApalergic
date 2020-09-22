@@ -10,8 +10,8 @@ const usuariosSchema = new Schema(
     foto: { type: String, required: false },
     email: { type: String, required: true},
     password: {type: String, required: true},
-    contact: {type: Number, required: false},
-    //alimentos: [{type: Schema.Types.ObjectId, ref:"Alergias"}],
+    contact: {type: String, required: false},
+    alimentos: [{type: Schema.Types.ObjectId, ref:"Alergias"}],
 
   },
   {

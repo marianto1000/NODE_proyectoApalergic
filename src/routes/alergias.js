@@ -1,5 +1,6 @@
 const express = require('express');
 const Alergias = require('../models/Alergias');
+const authenticateJWT = require ('../middlewares/autentication')
 
 const router = express.Router();
 
@@ -15,7 +16,7 @@ router.get('/', (req, res) => {
 
 
 
-router.post('/', (req, res) => {
+router.post('/', authenticateJWT, (req, res) => {
     const nombre = req.body.nombre
 
     const alergia = new Alergias()
@@ -44,7 +45,7 @@ router.get('/:id', (req, res) => {
 
 });
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', authenticateJWT, (req, res) => {
 	const id = req.params.id
 
 	Alergias.findByIdAndDelete(id)
