@@ -43,10 +43,13 @@ router.post('/', (req, res) => {
 
 		usuario.save()
 			.then((newUsuario) => {
-				res.json(newUsuario);
+				const accessToken = jwt.sign(
+					{ userID: newUsuario._id, nombreCompleto: newUsuario.nombreCompleto },
+					process.env.JWT_SECRET);
+				return res.json({ logged : true, token: accessToken, usuario:newUsuario})
 			})
 			.catch((error) => {
-				res.send(error);
+				res.status(500).send(error);
 			})
 	});
 });

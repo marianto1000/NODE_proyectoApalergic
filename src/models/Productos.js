@@ -7,10 +7,10 @@ const productosSchema = new Schema(
   {
     nombre: {type: String, required: true},
     marca: {type: String, required: true},
-    ingredientes: {type: Array, required: true},
+    ingredientes: {type: String, required: true},
     foto: {type: String, required: true},
     descripcion: {type: String, required: true},
-    //qr: {type: String, required: true},
+    compatibilidad: [{type: Schema.Types.ObjectId, ref:"Alergias"}]
   },
   {
     timestamps: true,

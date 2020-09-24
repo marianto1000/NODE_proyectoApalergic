@@ -21,7 +21,7 @@ router.post('/', (req, res) => {
     const ingredientes = req.body.ingredientes
     const foto = req.body.foto
     const descripcion = req.body.descripcion
-    const qr = req.body.qr
+    const compatibilidad = req.body.compatibilidad
 
     const producto = new Productos()
 
@@ -30,7 +30,7 @@ router.post('/', (req, res) => {
     producto.ingredientes = ingredientes;
     producto.foto = foto;
     producto.descripcion = descripcion;
-    producto.qr = qr;
+    producto.compatibilidad = compatibilidad;
 
     producto.save()
         .then((newProducto) => {

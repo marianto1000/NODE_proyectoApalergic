@@ -2,6 +2,7 @@ const express = require('express');
 const usuariosRoutes = require('./routes/usuarios');
 const alergiasRoutes = require('./routes/alergias');
 const productosRoutes = require('./routes/productos');
+const cors = require('cors');
 
 require('dotenv').config();
 require('./db.js');
@@ -9,6 +10,7 @@ require('./db.js');
 const PORT = process.env.PORT;
 const server = express();
 server.use(express.static('public'));
+server.use(cors());
 
 server.use(express.json());
 server.use(express.urlencoded({extended: false}));
