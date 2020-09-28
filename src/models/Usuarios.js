@@ -12,6 +12,12 @@ const usuariosSchema = new Schema(
     password: {type: String, required: true},
     contact: {type: String, required: false},
     alimentos: [{type: Schema.Types.ObjectId, ref:"Alergias"}],
+    contactoEmergencia: {
+     
+        nombreCompleto: {type: String, required:false},
+        email: {type: String, required:false},
+        movil: {type: String, required:false},
+    }
 
   },
   {
