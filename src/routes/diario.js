@@ -14,15 +14,15 @@ router.get('/',  (req, res) => {
         })
 });
 
-router.get('/singleUser', authenticateJWT, (req, res) => {
-    const id = req.usuario.userID;
+router.get("/:id", (req, res) => {
+    const id = req.params.id;
     Diario.findById(id, { __v: 0, updatedAt: 0, createdAt: 0 })
         .then((diario) => {
-            res.send(diario)
+            res.send(diario);
         })
         .catch((error) => {
-            res.status(500).send(error)
-        })
+            res.status(500).send(error);
+        });
 });
 
 
@@ -50,11 +50,10 @@ router.post('/', authenticateJWT, (req, res) => {
 
 });
 
-router.put("/", authenticateJWT, (req, res) => {
-    const id = req.usuario.userID;
-
+router.put("/:id", authenticateJWT, (req, res) => {
+    const id = req.params.id;
+    console.log(id);
     let camposActualizar = {};
-
 
     camposActualizar = { ...req.body };
 
@@ -70,8 +69,4 @@ router.put("/", authenticateJWT, (req, res) => {
         });
 });
 
-
-
-
 module.exports = router;
-
