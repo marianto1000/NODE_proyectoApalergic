@@ -5,8 +5,10 @@ const Schema = mongoose.Schema;
 
 const diarioSchema = new Schema(
   {
-    comentarios: {type: String, required: true},
-    productos: {type: Array, required: true},
+    nombreProducto: { type: String, required: true },
+    notas: { type: String, required: false },
+    fecha: { type: Date, default: Date.now() },
+    imagen: { type: String, required: false }
    
   },
   {

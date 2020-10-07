@@ -112,8 +112,8 @@ router.post('/login', (req, res) => {
 
 
 
-router.get('/:id', (req, res) => {
-	const id = req.params.id;
+router.get('/singleUser', authenticateJWT, (req, res) => {
+	const id = req.usuario.userID;
 	Usuarios.findById(id, { __v: 0, updatedAt: 0, createdAt: 0 })
 		.then((usuario) => {
 			res.send(usuario)
@@ -152,8 +152,8 @@ router.put('/', authenticateJWT, (req, res) => {
 		.then(() => {
 			return Usuarios.findById(id);
 		})
-		.then(() => {
-			res.send({ usuarioActualizado });
+		.then((usuarioGuardado) => {
+			res.json(usuarioGuardado);
 		})
 		.catch((error) => {
 			res.status(500).send(error);
